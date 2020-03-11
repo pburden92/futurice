@@ -11,21 +11,15 @@ fail_message = {"error": True, "message": "bad input"}
 
 @app.route('/calculus', methods=['GET'])
 def calculus():
-    logging.error("WE HIT THIS")
     if 'query' not in request.args:
-        print('this?')
         fail_message['message'] = "no query was supplied"
         return make_response(jsonify(fail_message), 400)
     arg = request.args.get("query")
     data_bytes = base64.urlsafe_b64decode(str(arg))
     calculation = data_bytes.decode("utf-8")
-    print("SEE ME HERE YES NOW")
-    print(calculation)
     try:
-        print('here?')
         success_message["result"] = calc.compute(calculation)
     except:
-        print('we get here')
         return make_response(jsonify(fail_message, 400))
     return make_response(jsonify(success_message), 200)
 
