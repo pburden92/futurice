@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI server instance configured to serve the Makersite API
+
+[Service]
+Type=simple
+Group=www-data
+User=ubuntu
+WorkingDirectory=/home/ubuntu/
+ExecStart=/home/ubuntu/.local/bin/uwsgi --ini mm.ini --logto /tmp/uwsgi.log
+
+
+[Install]
+WantedBy=multi-user.target
