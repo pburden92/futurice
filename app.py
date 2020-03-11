@@ -13,15 +13,18 @@ fail_message = {"error": True, "message": "bad input"}
 def calculus():
     if 'query' not in request.args:
         fail_message['message'] = "no query was supplied"
-        return make_response(jsonify(fail_message), 400)
-    arg = request.args.get("query")
-    data_bytes = base64.urlsafe_b64decode(str(arg))
-    calculation = data_bytes.decode("utf-8")
+        return make_response(jsonify(fail_message))
     try:
+        arg = str(request.args.get("query"))
+        if not arg.endswith('='):
+            arg=arg+'='
+        data_bytes = base64.urlsafe_b64decode(arg)
+        calculation = data_bytes.decode("utf-8")
+
         success_message["result"] = calc.compute(calculation)
     except:
-        return make_response(jsonify(fail_message, 400))
-    return make_response(jsonify(success_message), 200)
+        return make_response(jsonify(fail_message))
+    return make_response(jsonify(success_message))
 
 
 if __name__ == '__main__':
