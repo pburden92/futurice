@@ -1,6 +1,8 @@
 # futurice
 This app is a flask app built in python 3. It is running on nginix and uwsgi. At the time of writing this it is deployed at 54.154.24.216
 
+Some unit tests are included in the tests folder.
+
 Deployment:
 
   upload files to server with git.
